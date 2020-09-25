@@ -26,7 +26,7 @@
             <% else %>
               <li><%= link_to ' Home', root_path, class: 'glyphicon glyphicon-home home' %></li>
               <li><%= link_to ' About', home_about_path, class: 'glyphicon glyphicon-link about' %></li>
-              <li><%= link_to ' sign up', new_user_registration_path, class: 'glyphicon glyphicon-edit sign_up' %></li>
+               <li><%= link_to ' sign up', new_user_registration_path, class: 'glyphicon glyphicon-edit sign_up' %></li>
               <li><%= link_to ' login', new_user_session_path, class: 'glyphicon glyphicon-log-in sign_in' %></li>
             <% end %>
           </ul>
@@ -39,6 +39,26 @@
       <p id="notice"><%= notice %></p>
 
     </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-3 col-md-9">
+
+        <% if user_signed_in? %>
+
+           <%= form_tag(search_search_path, method: :get)do %>
+
+              <%= select_tag 'range' ,options_for_select([['---選択してください---', ''], ['User', '1'], ['Book', '2']]) %>
+
+              <%= select_tag 'search', options_for_select([["前方一致","forward_match"], ["後方一致","backward_match"], ["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
+              <%= text_field_tag (:word) %>
+              <%= submit_tag "検索" %>
+
+           <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
     <%= yield %>
 
